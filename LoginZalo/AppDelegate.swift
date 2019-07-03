@@ -7,16 +7,23 @@
 //
 
 import UIKit
-
+import ZaloSDK
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let zaloAppId = "1829577289837795818"
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        ZaloSDK.sharedInstance().initialize(withAppId: zaloAppId)
+
         return true
+    }
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        /// 0b. Receive callback from zalo
+        return ZDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
